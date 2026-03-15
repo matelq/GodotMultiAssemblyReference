@@ -1,0 +1,22 @@
+<!--
+  External NuGet module: source files live OUTSIDE the Godot project directory.
+  This simulates a shared library or NuGet package that provides Godot node types.
+  Scripts get csharp:// paths — they appear in the Add Node dialog but not in
+  the FileSystem panel (since they have no source file under res://).
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <!-- GodotProjectDir must differ from the source directory so that the source
+         generator produces csharp:// paths (triggered when relative path starts with "../").
+         Using a nonexistent subdirectory ensures all source files are "outside" it. -->
+    <GodotProjectDir>$(MSBuildProjectDirectory)\__godot_external__\</GodotProjectDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GodotSharp" Version="4.7.0-dev" />
+    <PackageReference Include="Godot.SourceGenerators" Version="4.7.0-dev"
+        OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+</Project>

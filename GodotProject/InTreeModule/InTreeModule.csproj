@@ -1,0 +1,17 @@
+<!--
+  In-tree module: source files live inside the Godot project directory (res://).
+  Uses Microsoft.NET.Sdk with manual GodotSharp + SourceGenerators references.
+  Scripts get res:// paths and are fully visible in the editor.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GodotSharp" Version="4.7.0-dev" />
+    <PackageReference Include="Godot.SourceGenerators" Version="4.7.0-dev"
+        OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+</Project>

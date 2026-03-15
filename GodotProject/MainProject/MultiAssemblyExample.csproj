@@ -1,0 +1,15 @@
+<Project Sdk="Godot.NET.Sdk/4.7.0-dev">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- In-tree module (Microsoft.NET.Sdk): source inside res://, ProjectReference -->
+    <ProjectReference Include="..\InTreeModule\InTreeModule.csproj" />
+    <!-- In-tree module (Godot.NET.Sdk): same as above but uses the Godot SDK -->
+    <ProjectReference Include="..\InTreeGodotSdkModule\InTreeGodotSdkModule.csproj" />
+    <!-- External NuGet package: source outside res://, compiled separately -->
+    <PackageReference Include="ExternalNuGetModule" Version="1.0.0" />
+  </ItemGroup>
+</Project>

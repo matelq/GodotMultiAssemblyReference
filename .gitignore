@@ -1,0 +1,126 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.idea
+
+## .NET / Visual Studio
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options
+.vs/
+Generated\ Files/
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Benchmark artifacts
+BenchmarkDotNet.Artifacts/
+
+# .NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# Coverage
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+*.dotCover
+
+# MSBuild binary log
+*.binlog
+
+# Build formatting lock
+.formatting.lock
+
+## IDE
+
+# JetBrains Rider / ReSharper
+.idea/
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+riderModule.iml
+/_ReSharper.Caches/
+
+# VS Code
+.vscode/
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+## Godot
+
+# Godot generated directory
+game/.godot/
+*.import
+
+## OS / misc
+
+*~
+~$*
+*.tmp
+nul
+
+# ralphex progress logs
+.ralphex/progress/
+
+# Godot 4+ specific ignores
+.godot/
+.nomedia
+
+# Godot-specific ignores
+.import/
+export.cfg
+export_credentials.cfg
+*.tmp
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json

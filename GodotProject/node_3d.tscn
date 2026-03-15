@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://prp54grbskok"]
+
+[ext_resource type="Script" uid="uid://bexy3abtsb6d1" path="res://InTreeModule/EnemyController.cs" id="1_noarx"]
+[ext_resource type="Script" path="csharp://ExternalNuGetModule/ExternalNuGetModule.InventorySystem.cs" id="2_a0tk4"]
+
+[node name="Node3D" type="Node3D" unique_id=1986647714]
+
+[node name="EnemyController" type="Node" parent="." unique_id=674800386]
+script = ExtResource("1_noarx")
+Health = null
+Speed = null
+DisplayName = null
+metadata/_custom_type_script = "uid://bexy3abtsb6d1"
+
+[node name="InventorySystem" type="Node" parent="." unique_id=601347191]
+script = ExtResource("2_a0tk4")
+MaxSlots = null
+AllowStacking = null
