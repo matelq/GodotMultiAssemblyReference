@@ -12,5 +12,9 @@
     <BaseIntermediateOutputPath>$(GodotProjectDir).godot\mono\temp\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(GodotProjectDir).godot\mono\temp\obj\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <!-- Required for source generators to emit editor-only code (e.g. GetGodotPropertyDefaultValues).
+         Godot.NET.Sdk sets these automatically; Microsoft.NET.Sdk projects need them explicitly. -->
+    <DefineConstants Condition="!$(DefineConstants.Contains('GODOT'))">GODOT;TOOLS;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 </Project>

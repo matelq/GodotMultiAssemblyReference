@@ -12,6 +12,7 @@
          generator produces csharp:// paths (triggered when relative path starts with "../").
          Using a nonexistent subdirectory ensures all source files are "outside" it. -->
     <GodotProjectDir>$(MSBuildProjectDirectory)\__godot_external__\</GodotProjectDir>
+    <DefineConstants>GODOT;TOOLS;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
