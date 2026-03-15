@@ -1,6 +1,6 @@
 # Godot Multi-Assembly C# Reference Project
 
-Example project demonstrating multi-assembly C# script support in Godot 4.7-dev. This requires the engine patch from [godotengine/godot PR #XXXX](https://github.com/godotengine/godot/pull/XXXX).
+Example project demonstrating multi-assembly C# script support in Godot 4.7-dev. This requires the engine patch from [godotengine/godot PR #117452](https://github.com/godotengine/godot/pull/117452).
 
 ## What this demonstrates
 
