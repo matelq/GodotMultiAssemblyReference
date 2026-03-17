@@ -1,18 +1,19 @@
 <!--
-  In-tree module: source files live inside the Godot project directory (res://).
-  Uses Microsoft.NET.Sdk with manual GodotSharp + SourceGenerators references.
-  Scripts get res:// paths and are fully visible in the editor.
+  Transitive NuGet module: referenced by InTreeModule (not by MainProject directly).
+  Tests that scripts in NuGet packages discovered transitively through
+  a ProjectReference chain are registered and visible in the editor.
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <GodotProjectDir>$(MSBuildProjectDirectory)\__godot_external__\</GodotProjectDir>
+    <DefineConstants>GODOT;TOOLS;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="GodotSharp" Version="4.7.0-dev" />
     <PackageReference Include="Godot.SourceGenerators" Version="4.7.0-dev"
         OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <PackageReference Include="TransitiveNuGetFromProject" Version="1.0.0" />
   </ItemGroup>
 </Project>

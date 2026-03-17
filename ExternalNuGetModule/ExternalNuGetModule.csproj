@@ -19,5 +19,6 @@
     <PackageReference Include="GodotSharp" Version="4.7.0-dev" />
     <PackageReference Include="Godot.SourceGenerators" Version="4.7.0-dev"
         OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <PackageReference Include="TransitiveNuGetFromNuGet" Version="1.0.0" />
   </ItemGroup>
 </Project>

@@ -11,4 +11,7 @@
     <BuildType Project="Debug" />
   </Project>
   <Project Path="MainProject/MultiAssemblyExample.csproj" />
+  <Project Path="TransitiveDependencyModule/TransitiveDependencyModule.csproj">
+    <BuildType Project="Debug" />
+  </Project>
 </Solution>
