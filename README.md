@@ -22,13 +22,23 @@ GodotMultiAssemblyReference/
       MainScene.cs
     InTreeModule/                        <- in-tree module (Microsoft.NET.Sdk + NuGet)
       InTreeModule.csproj
-      EnemyController.cs                   res://InTreeModule/EnemyController.cs
+      EnemyController.cs                   res://InTreeModule/EnemyController.cs   [Icon]
     InTreeGodotSdkModule/                <- in-tree module (Godot.NET.Sdk)
       InTreeGodotSdkModule.csproj
       HealthComponent.cs                   res://InTreeGodotSdkModule/HealthComponent.cs
+    TransitiveDependencyModule/          <- transitive via InTreeGodotSdkModule
+      TransitiveDependencyModule.csproj
+      TransitivePlayer.cs                  res://TransitiveDependencyModule/...
   ExternalNuGetModule/                   <- OUTSIDE res://, distributed as NuGet package
     ExternalNuGetModule.csproj             (Microsoft.NET.Sdk + NuGet)
-    InventorySystem.cs                     csharp://ExternalNuGetModule/...
+    InventorySystem.cs                     csharp://ExternalNuGetModule/...       [Icon]
+    InventoryItem.cs                       csharp://ExternalNuGetModule/...       (Resource)
+  TransitiveNuGetFromNuGet/              <- transitive NuGet -> NuGet
+    TransitiveNuGetFromNuGet.csproj
+    QuestTracker.cs                        csharp://TransitiveNuGetFromNuGet/...
+  TransitiveNuGetFromProject/            <- transitive Project -> NuGet
+    TransitiveNuGetFromProject.csproj
+    BuffSystem.cs                          csharp://TransitiveNuGetFromProject/...
 ```
 
 ## Three scenarios covered
@@ -46,10 +56,15 @@ GodotMultiAssemblyReference/
 ### 3. External NuGet PackageReference
 **`ExternalNuGetModule/`** — Lives **outside** the Godot project directory. Compiled and distributed as a NuGet package. Gets `csharp://` paths since source files are not under `res://`.
 
-- Appears in Add Node dialog (via `[GlobalClass]`)
-- `[Export]` properties visible and editable in Inspector
+- `InventorySystem` (Node) appears in Add Node dialog via `[GlobalClass]`
+- `InventoryItem` (Resource) appears in FileSystem -> Create New -> Resource dialog via `[GlobalClass]`
+- `[Export]` properties visible and editable in Inspector for both
+- `[Icon]` attributes render correctly (custom icon next to the class name)
 - Cannot be opened in external editor (source not on disk) — shows warning
 - Does not appear in FileSystem panel (no file under `res://`)
+
+### 4. Transitive references
+**`TransitiveNuGetFromNuGet/`** (NuGet -> NuGet) and **`TransitiveNuGetFromProject/`** (in-tree ProjectReference -> NuGet) confirm that `[GlobalClass]` types reached via a chain of references are discovered and registered the same way as direct references. Their scripts (`QuestTracker`, `BuffSystem`) also get `csharp://` paths.
 
 ## Important: `TOOLS` and `GODOT` defines
 

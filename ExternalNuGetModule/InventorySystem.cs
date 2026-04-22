@@ -9,7 +9,7 @@ namespace ExternalNuGetModule;
 /// with [Export] properties, but cannot be opened in an external editor
 /// from Godot (since the source is not available under res://).
 /// </summary>
-[GlobalClass]
+[GlobalClass, Icon("res://icon.svg")]
 public partial class InventorySystem : Node
 {
     [Export] public int MaxSlots { get; set; } = 20;

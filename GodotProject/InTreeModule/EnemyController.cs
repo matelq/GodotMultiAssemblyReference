@@ -8,7 +8,7 @@ namespace InTreeModule;
 /// so it appears in the FileSystem panel, Select Script dialog, and can be opened
 /// in an external editor directly from Godot.
 /// </summary>
-[GlobalClass]
+[GlobalClass, Icon("res://icon.svg")]
 public partial class EnemyController : Node
 {
     [Export] public int Health { get; set; } = 100;
