@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GodotSharp" Version="4.6.2" />
-    <PackageReference Include="Godot.SourceGenerators" Version="4.6.2"
+    <PackageReference Include="CrackTower.Godot.Sharp" Version="4.6.2-conv.1" />
+    <PackageReference Include="CrackTower.Godot.SourceGenerators" Version="4.6.2-conv.1"
         OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 </Project>
