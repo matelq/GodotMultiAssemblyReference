@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GodotSharp" Version="4.7.0-dev" />
-    <PackageReference Include="Godot.SourceGenerators" Version="4.7.0-dev"
+    <PackageReference Include="GodotSharp" Version="4.6.2" />
+    <PackageReference Include="Godot.SourceGenerators" Version="4.6.2"
         OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <PackageReference Include="TransitiveNuGetFromProject" Version="1.0.0" />
   </ItemGroup>
