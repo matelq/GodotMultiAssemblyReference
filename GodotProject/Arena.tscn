@@ -119,10 +119,22 @@ text = "Quest: 0 / 15 kills"
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 12.0
-offset_top = -32.0
+offset_top = -56.0
 offset_right = 360.0
-offset_bottom = -8.0
+offset_bottom = -32.0
 text = "Buff: —"
+
+[node name="Controls" type="Label" parent="Hud/Root"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -28.0
+offset_right = -12.0
+offset_bottom = -8.0
+text = "WASD/Arrows: move  •  Auto-attack: enemies in yellow ring  •  Yellow pickups: walk into them"
+horizontal_alignment = 1
+modulate = Color(1, 1, 1, 0.6)
 
 [node name="Result" type="Label" parent="Hud"]
 anchor_left = 0.5

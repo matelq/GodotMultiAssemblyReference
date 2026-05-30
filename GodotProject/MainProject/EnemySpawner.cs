@@ -49,15 +49,16 @@ public partial class EnemySpawner : Node2D
 
     private Vector2 PickEdgePoint()
     {
+        const float margin = 36f;
         int edge = _rng.RandiRange(0, 3);
-        float x = _rng.RandfRange(0, ArenaSize.X);
-        float y = _rng.RandfRange(0, ArenaSize.Y);
+        float x = _rng.RandfRange(margin, ArenaSize.X - margin);
+        float y = _rng.RandfRange(margin, ArenaSize.Y - margin);
         return edge switch
         {
-            0 => new Vector2(x, 0),
-            1 => new Vector2(x, ArenaSize.Y),
-            2 => new Vector2(0, y),
-            _ => new Vector2(ArenaSize.X, y),
+            0 => new Vector2(x, margin),
+            1 => new Vector2(x, ArenaSize.Y - margin),
+            2 => new Vector2(margin, y),
+            _ => new Vector2(ArenaSize.X - margin, y),
         };
     }
 }
