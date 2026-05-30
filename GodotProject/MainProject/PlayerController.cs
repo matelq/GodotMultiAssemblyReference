@@ -14,7 +14,7 @@ namespace MultiAssemblyExample;
 public partial class PlayerController : CharacterBody2D
 {
     [Export] public float BaseSpeed { get; set; } = 220f;
-    [Export] public float AttackRange { get; set; } = 140f;
+    [Export] public float AttackRange { get; set; } = 160f;
     [Export] public int AttackDamage { get; set; } = 35;
     [Export] public float AttackInterval { get; set; } = 0.45f;
     [Export] public float ContactDamageCooldown { get; set; } = 0.6f;
@@ -26,6 +26,8 @@ public partial class PlayerController : CharacterBody2D
 
     private float _attackTimer;
     private float _contactCooldown;
+    private Node2D? _currentTarget;
+    private float _attackFlashTimer;
 
     public override void _Ready()
     {
@@ -63,9 +65,10 @@ public partial class PlayerController : CharacterBody2D
     public override void _Process(double delta)
     {
         _attackTimer -= (float)delta;
-        if (_attackTimer > 0f) return;
+        _attackFlashTimer = Mathf.Max(0f, _attackFlashTimer - (float)delta);
 
-        HealthComponent? targetHealth = null;
+        Node2D? nearest = null;
+        HealthComponent? nearestHealth = null;
         float bestDistSq = AttackRange * AttackRange;
         foreach (Node n in GetTree().GetNodesInGroup("enemies"))
         {
@@ -74,14 +77,47 @@ public partial class PlayerController : CharacterBody2D
             if (distSq < bestDistSq && enemy.GetNodeOrNull<HealthComponent>("HealthComponent") is { } h)
             {
                 bestDistSq = distSq;
-                targetHealth = h;
+                nearest = enemy;
+                nearestHealth = h;
             }
         }
 
-        if (targetHealth != null)
+        _currentTarget = nearest;
+
+        if (_attackTimer <= 0f && nearestHealth != null && nearest != null)
         {
-            targetHealth.TakeDamage(AttackDamage);
+            nearestHealth.TakeDamage(AttackDamage);
             _attackTimer = AttackInterval;
+            _attackFlashTimer = 0.12f;
+            FlashEnemy(nearest);
         }
+
+        QueueRedraw();
+    }
+
+    public override void _Draw()
+    {
+        var ringColor = new Color(1f, 0.85f, 0.2f, 0.18f);
+        DrawArc(Vector2.Zero, AttackRange, 0f, Mathf.Tau, 48, ringColor, 1.5f);
+
+        if (_currentTarget != null && IsInstanceValid(_currentTarget))
+        {
+            Vector2 local = ToLocal(_currentTarget.GlobalPosition);
+            float alpha = _attackFlashTimer > 0f ? 0.95f : 0.45f;
+            var lineColor = new Color(1f, 0.9f, 0.3f, alpha);
+            DrawLine(Vector2.Zero, local, lineColor, _attackFlashTimer > 0f ? 3f : 1.5f);
+        }
+    }
+
+    private void FlashEnemy(Node2D enemy)
+    {
+        var visual = enemy.GetNodeOrNull<Polygon2D>("Visual");
+        if (visual == null) return;
+        visual.Modulate = new Color(3f, 3f, 3f, 1f);
+        GetTree().CreateTimer(0.09).Timeout += () =>
+        {
+            if (IsInstanceValid(visual))
+                visual.Modulate = Colors.White;
+        };
     }
 }
