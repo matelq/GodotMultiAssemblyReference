@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://bplayerscene01"]
+
+[ext_resource type="Script" path="res://MainProject/PlayerController.cs" id="1_player"]
+[ext_resource type="Script" path="res://InTreeGodotSdkModule/HealthComponent.cs" id="2_health"]
+[ext_resource type="Script" path="csharp://ExternalNuGetModule/ExternalNuGetModule.InventorySystem.cs" id="3_inv"]
+[ext_resource type="Script" path="csharp://TransitiveNuGetFromProject/TransitiveNuGetFromProject.BuffSystem.cs" id="4_buff"]
+[ext_resource type="Script" path="res://TransitiveDependencyModule/TransitivePlayer.cs" id="5_stats"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(28, 28)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_player")
+
+[node name="Visual" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-14, -14, 14, -14, 14, 14, -14, 14)
+color = Color(0.3, 0.6, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_player")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_health")
+MaxHealth = 100
+CurrentHealth = 100
+
+[node name="InventorySystem" type="Node" parent="."]
+script = ExtResource("3_inv")
+MaxSlots = 20
+AllowStacking = true
+
+[node name="BuffSystem" type="Node" parent="."]
+script = ExtResource("4_buff")
+Duration = 6.0
+Strength = 1.6
+BuffName = "Speed Boost"
+
+[node name="TransitivePlayer" type="Node" parent="."]
+script = ExtResource("5_stats")

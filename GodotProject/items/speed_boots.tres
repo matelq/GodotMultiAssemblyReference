@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItem" format=3 uid="uid://bspeedboots001"]
+
+[ext_resource type="Script" path="csharp://ExternalNuGetModule/ExternalNuGetModule.InventoryItem.cs" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+ItemName = "Speed Boots"
+MaxStack = 1
+Weight = 1.2
+metadata/_custom_type_script = "csharp://ExternalNuGetModule/ExternalNuGetModule.InventoryItem.cs"

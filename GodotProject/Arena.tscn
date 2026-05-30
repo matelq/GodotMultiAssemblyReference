@@ -1,0 +1,139 @@
+[gd_scene load_steps=12 format=3 uid="uid://barena000scene1"]
+
+[ext_resource type="Script" path="res://MainProject/ArenaController.cs" id="1_arena"]
+[ext_resource type="PackedScene" uid="uid://bplayerscene01" path="res://Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://benemyscene01" path="res://Enemy.tscn" id="3_enemy"]
+[ext_resource type="PackedScene" uid="uid://bpickupscene01" path="res://Pickup.tscn" id="4_pickup"]
+[ext_resource type="Script" path="res://MainProject/EnemySpawner.cs" id="5_spawner"]
+[ext_resource type="Script" path="csharp://TransitiveNuGetFromNuGet/TransitiveNuGetFromNuGet.QuestTracker.cs" id="6_quest"]
+[ext_resource type="Script" path="res://MainProject/Hud.cs" id="7_hud"]
+[ext_resource type="Resource" uid="uid://bhealthpotion01" path="res://items/health_potion.tres" id="8_hppotion"]
+[ext_resource type="Resource" uid="uid://bspeedboots001" path="res://items/speed_boots.tres" id="9_boots"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(960, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(16, 540)
+
+[node name="Arena" type="Node2D"]
+script = ExtResource("1_arena")
+KillsPerWave = 5
+PickupScene = ExtResource("4_pickup")
+HealthPickup = ExtResource("8_hppotion")
+SpeedPickup = ExtResource("9_boots")
+PickupSpawnInterval = 5.0
+ArenaSize = Vector2(960, 540)
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 960.0
+offset_bottom = 540.0
+color = Color(0.12, 0.13, 0.17, 1)
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Top" type="StaticBody2D" parent="Walls"]
+position = Vector2(480, 8)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top"]
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="Bottom" type="StaticBody2D" parent="Walls"]
+position = Vector2(480, 532)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom"]
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="Left" type="StaticBody2D" parent="Walls"]
+position = Vector2(8, 270)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left"]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="Right" type="StaticBody2D" parent="Walls"]
+position = Vector2(952, 270)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right"]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(480, 270)
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("5_spawner")
+EnemyScene = ExtResource("3_enemy")
+SpawnInterval = 1.8
+ArenaSize = Vector2(960, 540)
+
+[node name="QuestTracker" type="Node" parent="."]
+script = ExtResource("6_quest")
+MaxActiveQuests = 5
+AutoTrack = true
+QuestLogTitle = "Cleanse the arena"
+TargetKills = 15
+
+[node name="Hud" type="CanvasLayer" parent="."]
+script = ExtResource("7_hud")
+
+[node name="Root" type="Control" parent="Hud"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="HP" type="Label" parent="Hud/Root"]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 300.0
+offset_bottom = 32.0
+text = "HP: 100 / 100"
+
+[node name="Score" type="Label" parent="Hud/Root"]
+offset_left = 12.0
+offset_top = 32.0
+offset_right = 300.0
+offset_bottom = 56.0
+text = "Score: 0"
+
+[node name="Wave" type="Label" parent="Hud/Root"]
+offset_left = 12.0
+offset_top = 56.0
+offset_right = 300.0
+offset_bottom = 80.0
+text = "Wave: 1"
+
+[node name="Quest" type="Label" parent="Hud/Root"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = 32.0
+horizontal_alignment = 2
+text = "Quest: 0 / 15 kills"
+
+[node name="Buff" type="Label" parent="Hud/Root"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -32.0
+offset_right = 360.0
+offset_bottom = -8.0
+text = "Buff: —"
+
+[node name="Result" type="Label" parent="Hud"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -24.0
+offset_right = 200.0
+offset_bottom = 24.0
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 36
+text = "—"
