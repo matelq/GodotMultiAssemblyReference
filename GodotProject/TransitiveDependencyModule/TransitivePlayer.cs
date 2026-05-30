@@ -1,32 +1,34 @@
-﻿using Godot;
+using Godot;
 
 namespace TransitiveDependencyModule;
 
+/// <summary>
+/// Player run-state holder: score, current wave, simple win/lose state.
+/// Stays as a plain Node so it can be a child of any player root.
+/// </summary>
 [GlobalClass]
 public partial class TransitivePlayer : Node
 {
-    [Export] public int MaxHealth { get; set; } = 100;
-    [Export] public int CurrentHealth { get; set; } = 100;
-    [Export] public bool Invincible { get; set; }
+    [Export] public int Score { get; private set; }
+    [Export] public int Wave { get; private set; } = 1;
 
-    [Signal]
-    public delegate void HealthChangedEventHandler(int oldHealth, int newHealth);
-
-    [Signal]
-    public delegate void DiedEventHandler();
+    [Signal] public delegate void ScoreChangedEventHandler(int score);
+    [Signal] public delegate void WaveChangedEventHandler(int wave);
 
     public override void _Ready()
     {
-        GD.Print($"[InTreeGodotSdkModule] HealthComponent ready! MaxHealth={MaxHealth}");
+        GD.Print($"[TransitiveDependencyModule] TransitivePlayer ready! Score={Score} Wave={Wave}");
     }
 
-    public void TakeDamage(int amount)
+    public void AddScore(int amount)
     {
-        if (Invincible) return;
-        int oldHealth = CurrentHealth;
-        CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
-        EmitSignal(SignalName.HealthChanged, oldHealth, CurrentHealth);
-        if (CurrentHealth <= 0)
-            EmitSignal(SignalName.Died);
+        Score += amount;
+        EmitSignal(SignalName.ScoreChanged, Score);
+    }
+
+    public void NextWave()
+    {
+        Wave++;
+        EmitSignal(SignalName.WaveChanged, Wave);
     }
 }
